@@ -68,8 +68,9 @@ export function useDay(userId: string, date: string) {
 
   /** Optimistically apply a change, then save (debounced when delayMs > 0). */
   const update = useCallback(
-    (patch: Partial<DayRow>, delayMs = 0) => {
-      const next = { ...rowRef.current, ...patch }
+    (patch: Partial<DayRow> | ((current: DayRow) => Partial<DayRow>), delayMs = 0) => {
+      const current = rowRef.current
+      const next = { ...current, ...(typeof patch === 'function' ? patch(current) : patch) }
       rowRef.current = next
       setRow(next)
       schedule(next, delayMs)

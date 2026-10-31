@@ -2,8 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --line: rgba(11, 11, 11, 0.1);
+  --built: #2a78d6;
+  --posted: #eb6834;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --line: rgba(255, 255, 255, 0.1);
+    --built: #3987e5;
+    --posted: #d95926;
+  }
+}
+
 html,
 body {
-  @apply bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100;
+  background: var(--page);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   -webkit-tap-highlight-color: transparent;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-surface p-4;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted;
+  }
+  .input {
+    @apply min-h-11 w-full rounded-xl border border-line bg-page px-3 text-base text-ink outline-none placeholder:text-muted focus:border-built;
+  }
+  .btn {
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-line bg-surface px-3 text-sm font-medium text-ink active:scale-[0.98] disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply btn border-transparent bg-ink text-page;
+  }
 }
